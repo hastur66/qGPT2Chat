@@ -1,9 +1,10 @@
-import gradio as gr
-from threading import Thread
-import os
-from dotenv import load_dotenv
+import keras_nlp
+import tensorflow as tf
+import tensorflow_text as text
+from tensorflow import keras
+from tensorflow.lite.python import interpreter
 
-from gradio.themes.utisl.colors import Color
+import gradio as gr
 
 DESCRIPTION = """
 # gpt2-interface Chat 🗨️
@@ -22,24 +23,23 @@ prompt = [
 ]
 
 
-def prompt_builder(system_prompt, user_input, hist):
-    """
-    Builds a prompt for the model to use.
-    """
-    
-    prompt = f"""### System:\n{system_prompt}\n\n"""
+gpt2_tokenizer = keras_nlp.models.GPT2Tokenizer.from_preset("gpt2_base_en")
+gpt2_preprocessor = keras_nlp.models.GPT2CausalLMPreprocessor.from_preset(
+    "gpt2_base_en",
+    sequence_length=256,
+    add_end_token=True,
+)
 
-    for pair in hist:
-        prompt += f"""### User:\n{pair[0]}\n### Assistant:\n{pair[1]}\n\n"""
+gpt2_lm = keras_nlp.models.GPT2CausalLM.from_preset("gpt2_base_en",
+                                                    preprocessor=gpt2_preprocessor)
 
-    prompt += f"""### User:\n{user_input}\n\n### Assistant:"""
-    return prompt
 
 def chat(user_input, history, system_prompt):
     """
     chat function.
     """
-    return
+    output = gpt2_lm.generate(user_input, max_length=200)
+    return output
 
 text_color = "#FFFFFF"
 app_background = "#0A0A0A"
