@@ -5,6 +5,8 @@ from tensorflow import keras
 from tensorflow.lite.python import interpreter
 
 import gradio as gr
+from gradio.themes.utils.colors import Color
+
 
 DESCRIPTION = """
 # gpt2-interface Chat 🗨️
