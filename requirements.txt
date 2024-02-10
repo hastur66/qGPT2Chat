@@ -1,0 +1,4 @@
+keras-nlp
+tensorflow
+tensorflow_text
+gradio
