@@ -1,4 +1,4 @@
-keras-nlp
-tensorflow
-tensorflow_text
-gradio
+keras-nlp=0.5.0
+tensorflow==2.12
+tensorflow_text==2.12
+gradio==4.15.0
