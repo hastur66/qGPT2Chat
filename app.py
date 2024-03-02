@@ -1,8 +1,4 @@
 import keras_nlp
-import tensorflow as tf
-import tensorflow_text as text
-from tensorflow import keras
-from tensorflow.lite.python import interpreter
 
 import gradio as gr
 from gradio.themes.utils.colors import Color
@@ -24,11 +20,13 @@ gpt2_lm = keras_nlp.models.GPT2CausalLM.from_preset("gpt2_base_en",
                                                     preprocessor=gpt2_preprocessor)
 
 
-def chat(user_input, history, system_prompt):
+def chat(user_input, history):
     """
     chat function.
     """
-    output = gpt2_lm.generate(user_input, max_length=200)
+    # truncate history below sequence length
+    message = history + user_input
+    output = gpt2_lm.generate(message, max_length=200)
     return output
 
 text_color = "#FFFFFF"
