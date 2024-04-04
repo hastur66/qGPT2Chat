@@ -3,6 +3,6 @@ version: '3.7'
 services:
   gptchat:
     build: .
-    container_name: qGPT2Chat
+    container_name: gptchat
     ports:
-      - "9000:8000"
+      - "9000:7860"
