@@ -25,7 +25,8 @@ def chat(user_input, history):
     chat function.
     """
     # truncate history below sequence length
-    message = history + user_input
+    # message = history + user_input
+    message = user_input
     output = gpt2_lm.generate(message, max_length=200)
     return output
 
